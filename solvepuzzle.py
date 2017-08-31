@@ -219,6 +219,18 @@ def check_puzzle_solved(expanded_node_puzzle):
         if expanded_node_puzzle[i] == "W":
             white_found += 1
 
+def get_heuristic(expanded_node_puzzle):
+    """
+    The heuristic for A* is the number of "B"s to the left of the
+    right most "W".
+    """
+    rightmost_w_index = len(expanded_node_puzzle)-1-expanded_node_puzzle[::-1].index("W")
+    heuristic = 0
+    for i in range(rightmost_w_index):
+        if expanded_node_puzzle[i] == "B":
+            heuristic += 1
+    return heuristic
+
 def find_solution(expand_node):
     """
     This function is to backtrack and find the sequence of moves to be
