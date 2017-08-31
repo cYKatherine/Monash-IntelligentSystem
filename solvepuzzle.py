@@ -236,9 +236,10 @@ def diagnostic_generate_string(new_node):
             new_node.get_f()
         )
 
-def DLS(puzzle, bound, diagnostic):
+def DLS(puzzle, bound, diagnostic, flag):
     open_list = Stack()  # The nodes that haven't been visited
     closed_list = []  # The nodes that have been visited
+    diagnostic_count = 0
 
     root = Node(None, 0, 0, puzzle, None, 0)  # Root node with cost 0
     open_list.push(root)
@@ -277,8 +278,9 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(l3)
-            diagnostic_order_of_expansion.append(str(l3))
-            diagnostic_generate += diagnostic_generate_string(l3)
+            if diagnostic_count < flag:
+                diagnostic_order_of_expansion.append(str(l3))
+                diagnostic_generate += diagnostic_generate_string(l3)
         if check_R3(expand_node_puzzle):
             new_puzzle = get_r3_puzzle(expand_node_puzzle)
             r3 = Node(
@@ -290,8 +292,9 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(r3)
-            diagnostic_order_of_expansion.append(str(r3))
-            diagnostic_generate += diagnostic_generate_string(r3)
+            if diagnostic_count < flag:
+                diagnostic_order_of_expansion.append(str(r3))
+                diagnostic_generate += diagnostic_generate_string(r3)
         if check_L1(expand_node_puzzle):
             new_puzzle = get_l1_puzzle(expand_node_puzzle)
             l1 = Node(
@@ -303,8 +306,9 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(l1)
-            diagnostic_order_of_expansion.append(str(l1))
-            diagnostic_generate += diagnostic_generate_string(l1)
+            if diagnostic_count < flag:
+                diagnostic_order_of_expansion.append(str(l1))
+                diagnostic_generate += diagnostic_generate_string(l1)
         if check_R1(expand_node_puzzle):
             new_puzzle = get_r1_puzzle(expand_node_puzzle)
             r1 = Node(
@@ -316,8 +320,9 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(r1)
-            diagnostic_order_of_expansion.append(str(r1))
-            diagnostic_generate += diagnostic_generate_string(r1)
+            if diagnostic_count < flag:
+                diagnostic_order_of_expansion.append(str(r1))
+                diagnostic_generate += diagnostic_generate_string(r1)
         if check_L2(expand_node_puzzle):
             new_puzzle = get_l2_puzzle(expand_node_puzzle)
             l2 = Node(
@@ -329,8 +334,9 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(l2)
-            diagnostic_order_of_expansion.append(str(l2))
-            diagnostic_generate += diagnostic_generate_string(l2)
+            if diagnostic_count < flag:
+                diagnostic_order_of_expansion.append(str(l2))
+                diagnostic_generate += diagnostic_generate_string(l2)
         if check_R2(expand_node_puzzle):
             new_puzzle = get_r2_puzzle(expand_node_puzzle)
             r2 = Node(
@@ -342,28 +348,31 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(r2)
-            diagnostic_order_of_expansion.append(str(r2))
-            diagnostic_generate += diagnostic_generate_string(r2)
+            if diagnostic_count < flag:
+                diagnostic_order_of_expansion.append(str(r2))
+                diagnostic_generate += diagnostic_generate_string(r2)
         expand_node.set_children(l1, l2, l3, r1, r2, r3)
 
         # Set up diagnostic mode information
-        diagnostic_expand = "Node {} is EXPANDED:\nIdentifier: {}\nOrder of expansion: {}\ng: {}, f: {}\nOPEN list: {}\nCLOSED list: {}\n".format(
-            str(expand_node),
-            str(expand_node),
-            ', '.join(diagnostic_order_of_expansion),
-            expand_node.get_cost(),
-            expand_node.get_f(),
-            str(open_list),
-            ', '.join([str(node) for node in closed_list])
-        )
-        diagnostic.append(diagnostic_expand + diagnostic_generate)
+        if diagnostic_count < flag:
+            diagnostic_expand = "Node {} is EXPANDED:\nIdentifier: {}\nOrder of expansion: {}\ng: {}, f: {}\nOPEN list: {}\nCLOSED list: {}\n".format(
+                str(expand_node),
+                str(expand_node),
+                ', '.join(diagnostic_order_of_expansion),
+                expand_node.get_cost(),
+                expand_node.get_f(),
+                str(open_list),
+                ', '.join([str(node) for node in closed_list])
+            )
+            diagnostic.append(diagnostic_expand + diagnostic_generate)
+            diagnostic_count += 1
 
 def graphsearch(puzzle, flag, procedure_name):
     solution = "start BBBWWWE 0" + "\n" + "2L BBBWEWW 1" + "\n" + "2L BBEWBWW 2" + "\n" + "3R BBWWBEW 4"
     if procedure_name == "DLS":
-        bound = 100  # you have to determine its value
+        bound = 20  # you have to determine its value
         diagnostic = [] # The list stored the detail of nodes of expanation
-        solution = DLS(list(puzzle), bound, diagnostic)
+        solution = DLS(list(puzzle), bound, diagnostic, flag)
     elif procedure_name == "A":
         print("your code for A/A* goes here")
     else:
