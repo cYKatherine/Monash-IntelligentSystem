@@ -543,6 +543,8 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             diagnostic.append(diagnostic_expand + diagnostic_generate + "----------------------")
             diagnostic_count += 1
+    return "Answer not found"
+
 
 def graphsearch(puzzle, flag, procedure_name):
     solution = "start BBBWWWE 0" + "\n" + "2L BBBWEWW 1" + "\n" + "2L BBEWBWW 2" + "\n" + "3R BBWWBEW 4"
