@@ -278,8 +278,11 @@ def diagnostic_generate_string(new_node):
             new_node.get_f()
         )
 
-def DLS(puzzle, bound, diagnostic, flag):
-    open_list = Stack()  # The nodes that haven't been visited
+def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
+    if procedure_name == "DLS":
+        open_list = Stack()  # The nodes that haven't been visited
+    else:
+        open_list = MinHeap()
     closed_list = []  # The nodes that have been visited
     diagnostic_count = 0
 
@@ -311,10 +314,13 @@ def DLS(puzzle, bound, diagnostic, flag):
         # should be the revise.
         if check_L3(expand_node_puzzle):
             new_puzzle = get_l3_puzzle(expand_node_puzzle)
+            heuristic = 0
+            if procedure_name == "A":
+                heuristic = get_heuristic(new_puzzle)
             l3 = Node(
                 expand_node,
                 expand_node_cost+2,
-                0,
+                heuristic,
                 new_puzzle,
                 "L3",
                 expand_node_depth+1
@@ -325,10 +331,13 @@ def DLS(puzzle, bound, diagnostic, flag):
                 diagnostic_generate += diagnostic_generate_string(l3)
         if check_R3(expand_node_puzzle):
             new_puzzle = get_r3_puzzle(expand_node_puzzle)
+            heuristic = 0
+            if procedure_name == "A":
+                heuristic = get_heuristic(new_puzzle)
             r3 = Node(
                 expand_node,
                 expand_node_cost+2,
-                0,
+                heuristic,
                 new_puzzle,
                 "R3",
                 expand_node_depth+1
@@ -339,10 +348,13 @@ def DLS(puzzle, bound, diagnostic, flag):
                 diagnostic_generate += diagnostic_generate_string(r3)
         if check_L1(expand_node_puzzle):
             new_puzzle = get_l1_puzzle(expand_node_puzzle)
+            heuristic = 0
+            if procedure_name == "A":
+                heuristic = get_heuristic(new_puzzle)
             l1 = Node(
                 expand_node,
                 expand_node_cost+1,
-                0,
+                heuristic,
                 new_puzzle,
                 "L1",
                 expand_node_depth+1
@@ -353,10 +365,13 @@ def DLS(puzzle, bound, diagnostic, flag):
                 diagnostic_generate += diagnostic_generate_string(l1)
         if check_R1(expand_node_puzzle):
             new_puzzle = get_r1_puzzle(expand_node_puzzle)
+            heuristic = 0
+            if procedure_name == "A":
+                heuristic = get_heuristic(new_puzzle)
             r1 = Node(
                 expand_node,
                 expand_node_cost+1,
-                0,
+                heuristic,
                 new_puzzle,
                 "R1",
                 expand_node_depth+1
@@ -367,10 +382,13 @@ def DLS(puzzle, bound, diagnostic, flag):
                 diagnostic_generate += diagnostic_generate_string(r1)
         if check_L2(expand_node_puzzle):
             new_puzzle = get_l2_puzzle(expand_node_puzzle)
+            heuristic = 0
+            if procedure_name == "A":
+                heuristic = get_heuristic(new_puzzle)
             l2 = Node(
                 expand_node,
                 expand_node_cost+1,
-                0,
+                heuristic,
                 new_puzzle,
                 "L2",
                 expand_node_depth+1
@@ -381,10 +399,13 @@ def DLS(puzzle, bound, diagnostic, flag):
                 diagnostic_generate += diagnostic_generate_string(l2)
         if check_R2(expand_node_puzzle):
             new_puzzle = get_r2_puzzle(expand_node_puzzle)
+            heuristic = 0
+            if procedure_name == "A":
+                heuristic = get_heuristic(new_puzzle)
             r2 = Node(
                 expand_node,
                 expand_node_cost+1,
-                0,
+                heuristic,
                 new_puzzle,
                 "R2",
                 expand_node_depth+1
@@ -411,12 +432,10 @@ def DLS(puzzle, bound, diagnostic, flag):
 
 def graphsearch(puzzle, flag, procedure_name):
     solution = "start BBBWWWE 0" + "\n" + "2L BBBWEWW 1" + "\n" + "2L BBEWBWW 2" + "\n" + "3R BBWWBEW 4"
-    if procedure_name == "DLS":
-        bound = 20  # you have to determine its value
-        diagnostic = [] # The list stored the detail of nodes of expanation
-        solution = DLS(list(puzzle), bound, diagnostic, flag)
-    elif procedure_name == "A":
-        print("your code for A/A* goes here")
+    bound = 20  # you have to determine its value
+    diagnostic = [] # The list stored the detail of nodes of expanation
+    if procedure_name == "DLS" or procedure_name == "A":
+        solution = search_algorithm(procedure_name, list(puzzle), bound, diagnostic, flag)
     else:
         print("invalid procedure name")
 
