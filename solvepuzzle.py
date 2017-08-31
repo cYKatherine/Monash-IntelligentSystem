@@ -319,8 +319,8 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
         diagnostic_generate = ""
 
         l1, l2, l3, r1, r2, r3 = None, None, None, None, None, None
-        # The priority of the children to pop up should be "R2, L2,
-        # R1, L1, R3, L3", because it's a stack, the order we push in
+        # The priority of the children to pop up should be "2R, 2L,
+        # 1R, 1L, 3R, 3L", because it's a stack, the order we push in
         # should be the revise.
         if check_L3(expand_node_puzzle):
             new_puzzle = get_l3_puzzle(expand_node_puzzle)
