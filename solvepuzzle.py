@@ -23,21 +23,22 @@ class MinHeap(object):
 
     The objects in the MinHeap ara sorted by the f value of the node.
     """
-    def __init__(self, node=None, key=lambda x:x.get_f()):
-        self.key = key
+    def __init__(self, node=None, first_key=lambda x:x.get_f(), second_key=lambda x:x.operator_comparasion()):
+        self.first_key = first_key  # The first priority should be the cost/f
+        self.second_key = second_key  # The second priority should be how they move
         self._data = []
 
     def __str__(self):
         string_to_print = ""
         for node in self._data:
-            string_to_print += str(node[1]) + ' '
+            string_to_print += str(node[2]) + ' '
         return string_to_print
 
     def push(self, node):
-        heapq.heappush(self._data, (self.key(node), node))
+        heapq.heappush(self._data, (self.first_key(node), self.second_key(node), node))
 
     def pop(self):
-        return heapq.heappop(self._data)[1]
+        return heapq.heappop(self._data)[2]
 
     def empty(self):
         return len(self._data) == 0
@@ -133,6 +134,13 @@ class Node:
         return self.parent
     def get_operator(self):
         return self.operator
+
+    def operator_comparasion(self):
+        order = ["3L", "3R", "1L", "1R", "2L", "2R"]
+        if self.operator:
+            return order.index(self.get_operator())
+        else:
+            return 0
 
 def check_L1(expand_node_puzzle):
     empty_index = expand_node_puzzle.index("E")
