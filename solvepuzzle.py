@@ -1,5 +1,7 @@
 """
-HOW FUCK IS THIS ASSIGNMENT!!!!!!!!!!!!!!!!!!!!!!!
+@author: Katherine(Yue) Chen
+@student id: 27180816
+@tutorial: Friday 8am
 """
 
 import argparse as ap
