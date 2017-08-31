@@ -105,6 +105,9 @@ class Node:
     def __repr__(self):
         return "N" + str(self.identifier)
 
+    def __lt__(self, other):
+        return self.identifier < other.identifier
+
     def set_children(self, l1=None, l2=None, l3=None, r1=None, r2=None, r3=None):
         self.L1 = l1
         self.L2 = l2
