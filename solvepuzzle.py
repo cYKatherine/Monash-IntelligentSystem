@@ -296,6 +296,7 @@ def diagnostic_generate_string(new_node):
         )
 
 def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
+    check_duplicated_states = {}  # This dic is to ensure no duplicated states are generated
     if procedure_name == "DLS":
         open_list = Stack()  # The nodes that haven't been visited
     else:
@@ -332,99 +333,201 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
         if check_L3(expand_node_puzzle):
             new_puzzle = get_l3_puzzle(expand_node_puzzle)
             heuristic = 0
+            new_puzzle_string = ''.join(new_puzzle)
             if procedure_name == "A":
                 heuristic = get_heuristic(new_puzzle)
-            l3 = Node(
-                expand_node,
-                expand_node_cost+2,
-                heuristic,
-                new_puzzle,
-                "3L",
-                expand_node_depth+1
-            )
-            open_list.push(l3)
-            if diagnostic_count < flag:
-                diagnostic_generate += diagnostic_generate_string(l3)
+            if not new_puzzle_string in check_duplicated_states:
+                l3 = Node(
+                    expand_node,
+                    expand_node_cost+2,
+                    heuristic,
+                    new_puzzle,
+                    "3L",
+                    expand_node_depth+1
+                )
+                open_list.push(l3)
+                if diagnostic_count < flag:
+                    diagnostic_generate += diagnostic_generate_string(l3)
+                check_duplicated_states[new_puzzle_string] = l3
+            elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
+                exist_node = check_duplicated_states[new_puzzle_string]
+                if heuristic+expand_node_cost+2 < exist_node.get_f():
+                    exist_node.set_parent(expand_node)
+                    exist_node.set_cost(expand_node_cost+2)
+                    if diagnostic_count < flag:
+                        diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+                elif heuristic+expand_node_cost+2 == exist_node.get_f():
+                    if 0 > exist_node.operator_comparasion():
+                        exist_node.set_parent(expand_node)
+                        exist_node.set_cost(expand_node_cost+2)
+                        if diagnostic_count < flag:
+                            diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+
         if check_R3(expand_node_puzzle):
             new_puzzle = get_r3_puzzle(expand_node_puzzle)
             heuristic = 0
+            new_puzzle_string = ''.join(new_puzzle)
             if procedure_name == "A":
                 heuristic = get_heuristic(new_puzzle)
-            r3 = Node(
-                expand_node,
-                expand_node_cost+2,
-                heuristic,
-                new_puzzle,
-                "3R",
-                expand_node_depth+1
-            )
-            open_list.push(r3)
-            if diagnostic_count < flag:
-                diagnostic_generate += diagnostic_generate_string(r3)
+            if not new_puzzle_string in check_duplicated_states:
+                r3 = Node(
+                    expand_node,
+                    expand_node_cost+2,
+                    heuristic,
+                    new_puzzle,
+                    "3R",
+                    expand_node_depth+1
+                )
+                open_list.push(r3)
+                if diagnostic_count < flag:
+                    diagnostic_generate += diagnostic_generate_string(r3)
+                check_duplicated_states[new_puzzle_string] = r3
+            elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
+                exist_node = check_duplicated_states[new_puzzle_string]
+                if heuristic+expand_node_cost+2 < exist_node.get_f():
+                    exist_node.set_parent(expand_node)
+                    exist_node.set_cost(expand_node_cost+2)
+                    if diagnostic_count < flag:
+                        diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+                elif heuristic+expand_node_cost+2 == exist_node.get_f():
+                    if 1 > exist_node.operator_comparasion():
+                        exist_node.set_parent(expand_node)
+                        exist_node.set_cost(expand_node_cost+2)
+                        if diagnostic_count < flag:
+                            diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+
         if check_L1(expand_node_puzzle):
             new_puzzle = get_l1_puzzle(expand_node_puzzle)
             heuristic = 0
+            new_puzzle_string = ''.join(new_puzzle)
             if procedure_name == "A":
                 heuristic = get_heuristic(new_puzzle)
-            l1 = Node(
-                expand_node,
-                expand_node_cost+1,
-                heuristic,
-                new_puzzle,
-                "1L",
-                expand_node_depth+1
-            )
-            open_list.push(l1)
-            if diagnostic_count < flag:
-                diagnostic_generate += diagnostic_generate_string(l1)
+            if not new_puzzle_string in check_duplicated_states:
+                l1 = Node(
+                    expand_node,
+                    expand_node_cost+1,
+                    heuristic,
+                    new_puzzle,
+                    "1L",
+                    expand_node_depth+1
+                )
+                open_list.push(l1)
+                if diagnostic_count < flag:
+                    diagnostic_generate += diagnostic_generate_string(l1)
+                check_duplicated_states[new_puzzle_string] = l1
+            elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
+                exist_node = check_duplicated_states[new_puzzle_string]
+                if heuristic+expand_node_cost+1 < exist_node.get_f():
+                    exist_node.set_parent(expand_node)
+                    exist_node.set_cost(expand_node_cost+1)
+                    if diagnostic_count < flag:
+                        diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+                elif heuristic+expand_node_cost+2 == exist_node.get_f():
+                    if 2 > exist_node.operator_comparasion():
+                        exist_node.set_parent(expand_node)
+                        exist_node.set_cost(expand_node_cost+1)
+                        if diagnostic_count < flag:
+                            diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+
         if check_R1(expand_node_puzzle):
             new_puzzle = get_r1_puzzle(expand_node_puzzle)
             heuristic = 0
+            new_puzzle_string = ''.join(new_puzzle)
             if procedure_name == "A":
                 heuristic = get_heuristic(new_puzzle)
-            r1 = Node(
-                expand_node,
-                expand_node_cost+1,
-                heuristic,
-                new_puzzle,
-                "1R",
-                expand_node_depth+1
-            )
-            open_list.push(r1)
-            if diagnostic_count < flag:
-                diagnostic_generate += diagnostic_generate_string(r1)
+            if not new_puzzle_string in check_duplicated_states:
+                r1 = Node(
+                    expand_node,
+                    expand_node_cost+1,
+                    heuristic,
+                    new_puzzle,
+                    "1R",
+                    expand_node_depth+1
+                )
+                open_list.push(r1)
+                if diagnostic_count < flag:
+                    diagnostic_generate += diagnostic_generate_string(r1)
+                check_duplicated_states[new_puzzle_string] = r1
+            elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
+                exist_node = check_duplicated_states[new_puzzle_string]
+                if heuristic+expand_node_cost+1 < exist_node.get_f():
+                    exist_node.set_parent(expand_node)
+                    exist_node.set_cost(expand_node_cost+1)
+                    if diagnostic_count < flag:
+                        diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+                elif heuristic+expand_node_cost+2 == exist_node.get_f():
+                    if 3 > exist_node.operator_comparasion():
+                        exist_node.set_parent(expand_node)
+                        exist_node.set_cost(expand_node_cost+1)
+                        if diagnostic_count < flag:
+                            diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+
         if check_L2(expand_node_puzzle):
             new_puzzle = get_l2_puzzle(expand_node_puzzle)
             heuristic = 0
+            new_puzzle_string = ''.join(new_puzzle)
             if procedure_name == "A":
                 heuristic = get_heuristic(new_puzzle)
-            l2 = Node(
-                expand_node,
-                expand_node_cost+1,
-                heuristic,
-                new_puzzle,
-                "2L",
-                expand_node_depth+1
-            )
-            open_list.push(l2)
-            if diagnostic_count < flag:
-                diagnostic_generate += diagnostic_generate_string(l2)
+            if not new_puzzle_string in check_duplicated_states:
+                l2 = Node(
+                    expand_node,
+                    expand_node_cost+1,
+                    heuristic,
+                    new_puzzle,
+                    "2L",
+                    expand_node_depth+1
+                )
+                open_list.push(l2)
+                if diagnostic_count < flag:
+                    diagnostic_generate += diagnostic_generate_string(l2)
+                check_duplicated_states[new_puzzle_string] = l2
+            elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
+                exist_node = check_duplicated_states[new_puzzle_string]
+                if heuristic+expand_node_cost+1 < exist_node.get_f():
+                    exist_node.set_parent(expand_node)
+                    exist_node.set_cost(expand_node_cost+1)
+                    if diagnostic_count < flag:
+                        diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+                elif heuristic+expand_node_cost+2 == exist_node.get_f():
+                    if 4 > exist_node.operator_comparasion():
+                        exist_node.set_parent(expand_node)
+                        exist_node.set_cost(expand_node_cost+1)
+                        if diagnostic_count < flag:
+                            diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+
         if check_R2(expand_node_puzzle):
             new_puzzle = get_r2_puzzle(expand_node_puzzle)
             heuristic = 0
+            new_puzzle_string = ''.join(new_puzzle)
             if procedure_name == "A":
                 heuristic = get_heuristic(new_puzzle)
-            r2 = Node(
-                expand_node,
-                expand_node_cost+1,
-                heuristic,
-                new_puzzle,
-                "2R",
-                expand_node_depth+1
-            )
-            open_list.push(r2)
-            if diagnostic_count < flag:
-                diagnostic_generate += diagnostic_generate_string(r2)
+            if not new_puzzle_string in check_duplicated_states:
+                r2 = Node(
+                    expand_node,
+                    expand_node_cost+1,
+                    heuristic,
+                    new_puzzle,
+                    "2R",
+                    expand_node_depth+1
+                )
+                open_list.push(r2)
+                if diagnostic_count < flag:
+                    diagnostic_generate += diagnostic_generate_string(r2)
+                check_duplicated_states[new_puzzle_string] = r2
+            elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
+                exist_node = check_duplicated_states[new_puzzle_string]
+                if heuristic+expand_node_cost+1 < exist_node.get_f():
+                    exist_node.set_parent(expand_node)
+                    exist_node.set_cost(expand_node_cost+1)
+                    if diagnostic_count < flag:
+                        diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+                elif heuristic+expand_node_cost+2 == exist_node.get_f():
+                    if 5 > exist_node.operator_comparasion():
+                        exist_node.set_parent(expand_node)
+                        exist_node.set_cost(expand_node_cost+1)
+                        if diagnostic_count < flag:
+                            diagnostic_generate += "\n{}'s parent and cost have been updated.\n".format(str(exist_node))
+
         expand_node.set_children(l1, l2, l3, r1, r2, r3)
 
         # Set up diagnostic mode information
