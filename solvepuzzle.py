@@ -322,7 +322,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 expand_node_cost+2,
                 heuristic,
                 new_puzzle,
-                "L3",
+                "3L",
                 expand_node_depth+1
             )
             open_list.push(l3)
@@ -339,7 +339,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 expand_node_cost+2,
                 heuristic,
                 new_puzzle,
-                "R3",
+                "3R",
                 expand_node_depth+1
             )
             open_list.push(r3)
@@ -356,7 +356,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 expand_node_cost+1,
                 heuristic,
                 new_puzzle,
-                "L1",
+                "1L",
                 expand_node_depth+1
             )
             open_list.push(l1)
@@ -373,7 +373,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 expand_node_cost+1,
                 heuristic,
                 new_puzzle,
-                "R1",
+                "1R",
                 expand_node_depth+1
             )
             open_list.push(r1)
@@ -390,7 +390,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 expand_node_cost+1,
                 heuristic,
                 new_puzzle,
-                "L2",
+                "2L",
                 expand_node_depth+1
             )
             open_list.push(l2)
@@ -407,7 +407,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 expand_node_cost+1,
                 heuristic,
                 new_puzzle,
-                "R2",
+                "2R",
                 expand_node_depth+1
             )
             open_list.push(r2)
