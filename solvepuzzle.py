@@ -548,7 +548,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
 
 def graphsearch(puzzle, flag, procedure_name):
     solution = "start BBBWWWE 0" + "\n" + "2L BBBWEWW 1" + "\n" + "2L BBEWBWW 2" + "\n" + "3R BBWWBEW 4"
-    bound = 20  # you have to determine its value
+    bound = 100  # you have to determine its value
     diagnostic = [] # The list stored the detail of nodes of expanation
     if procedure_name == "DLS" or procedure_name == "A":
         solution = search_algorithm(procedure_name, list(puzzle), bound, diagnostic, flag)
