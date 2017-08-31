@@ -241,13 +241,12 @@ def check_puzzle_solved(expanded_node_puzzle):
 
 def get_heuristic(expanded_node_puzzle):
     """
-    The heuristic for A* is the number of "B"s to the left of the
-    right most "W".
+    The heuristic is the number of “W”s to the right of the left most “B”.
     """
-    rightmost_w_index = len(expanded_node_puzzle)-1-expanded_node_puzzle[::-1].index("W")
+    leftmost_b_index = expanded_node_puzzle.index("B")
     heuristic = 0
-    for i in range(rightmost_w_index):
-        if expanded_node_puzzle[i] == "B":
+    for i in range(leftmost_b_index):
+        if expanded_node_puzzle[i] == "W":
             heuristic += 1
     return heuristic
 
