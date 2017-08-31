@@ -440,7 +440,7 @@ def graphsearch(puzzle, flag, procedure_name):
         print("invalid procedure name")
 
     if flag > 0:
-        for i in range(flag):
+        for i in range(min(flag, len(diagnostic))):
             print(diagnostic[i])
 
     return solution
