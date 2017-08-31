@@ -16,6 +16,7 @@ import heapq
 
 
 ################## YOUR CODE GOES HERE ########################################
+OPERATOR_ORDER = ["3L", "3R", "1L", "1R", "2L", "2R"]
 
 class MinHeap(object):
     """
@@ -135,10 +136,16 @@ class Node:
     def get_operator(self):
         return self.operator
 
+    # Mutators
+    def set_parent(self, parent):
+        self.parent = parent
+    def set_cost(self, cost):
+        self.g = cost
+        self.f = self.g + self.h
+
     def operator_comparasion(self):
-        order = ["3L", "3R", "1L", "1R", "2L", "2R"]
         if self.operator:
-            return order.index(self.get_operator())
+            return OPERATOR_ORDER.index(self.get_operator())
         else:
             return 0
 
