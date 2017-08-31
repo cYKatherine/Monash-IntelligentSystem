@@ -3,6 +3,7 @@ HOW FUCK IS THIS ASSIGNMENT!!!!!!!!!!!!!!!!!!!!!!!
 """
 
 import argparse as ap
+import heapq
 
 ######## RUNNING THE CODE ####################################################
 #   You can run this code from terminal by executing the following command
@@ -13,6 +14,32 @@ import argparse as ap
 
 
 ################## YOUR CODE GOES HERE ########################################
+
+class MinHeap(object):
+    """
+    MinHeap object to be used as the data structure for A*.
+
+    The objects in the MinHeap ara sorted by the f value of the node.
+    """
+    def __init__(self, node=None, key=lambda x:x.get_f()):
+        self.key = key
+        self._data = []
+
+    def __str__(self):
+        string_to_print = ""
+        for node in self._data:
+            string_to_print += str(node[1]) + ' '
+        return string_to_print
+
+    def push(self, node):
+        heapq.heappush(self._data, (self.key(node), node))
+
+    def pop(self):
+        return heapq.heappop(self._data)[1]
+
+    def empty(self):
+        return len(self._data) == 0
+
 
 class Stack:
     """
