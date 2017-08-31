@@ -89,24 +89,19 @@ class Node:
         self.R2 = r2
         self.R3 = r3
 
+    # Accessors
     def get_cost(self):
         return self.g
-
     def get_f(self):
         return self.f
-
     def get_h(self):
         return self.h
-
     def get_puzzle(self):
         return self.puzzle
-
     def get_depth(self):
         return self.depth
-
     def get_parent(self):
         return self.parent
-
     def get_operator(self):
         return self.operator
 
