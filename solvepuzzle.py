@@ -306,6 +306,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
 
     root = Node(None, 0, 0, puzzle, None, 0)  # Root node with cost 0
     open_list.push(root)
+    check_duplicated_states[''.join(puzzle)] = root
     while not open_list.empty():
         # DEBUG:
         # print("haha")
@@ -317,6 +318,7 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
         expand_node_cost = expand_node.get_cost()
         expand_node_puzzle = expand_node.get_puzzle()
         expand_node_depth = expand_node.get_depth()
+        check_duplicated_states[''.join(expand_node_puzzle)] = expand_node
 
         if check_puzzle_solved(expand_node_puzzle):
             return find_solution(expand_node)
@@ -348,7 +350,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 open_list.push(l3)
                 if diagnostic_count < flag:
                     diagnostic_generate += diagnostic_generate_string(l3)
-                check_duplicated_states[new_puzzle_string] = l3
             elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
                 exist_node = check_duplicated_states[new_puzzle_string]
                 if heuristic+expand_node_cost+2 < exist_node.get_f():
@@ -381,7 +382,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 open_list.push(r3)
                 if diagnostic_count < flag:
                     diagnostic_generate += diagnostic_generate_string(r3)
-                check_duplicated_states[new_puzzle_string] = r3
             elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
                 exist_node = check_duplicated_states[new_puzzle_string]
                 if heuristic+expand_node_cost+2 < exist_node.get_f():
@@ -414,7 +414,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 open_list.push(l1)
                 if diagnostic_count < flag:
                     diagnostic_generate += diagnostic_generate_string(l1)
-                check_duplicated_states[new_puzzle_string] = l1
             elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
                 exist_node = check_duplicated_states[new_puzzle_string]
                 if heuristic+expand_node_cost+1 < exist_node.get_f():
@@ -447,7 +446,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 open_list.push(r1)
                 if diagnostic_count < flag:
                     diagnostic_generate += diagnostic_generate_string(r1)
-                check_duplicated_states[new_puzzle_string] = r1
             elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
                 exist_node = check_duplicated_states[new_puzzle_string]
                 if heuristic+expand_node_cost+1 < exist_node.get_f():
@@ -480,7 +478,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 open_list.push(l2)
                 if diagnostic_count < flag:
                     diagnostic_generate += diagnostic_generate_string(l2)
-                check_duplicated_states[new_puzzle_string] = l2
             elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
                 exist_node = check_duplicated_states[new_puzzle_string]
                 if heuristic+expand_node_cost+1 < exist_node.get_f():
@@ -513,7 +510,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
                 open_list.push(r2)
                 if diagnostic_count < flag:
                     diagnostic_generate += diagnostic_generate_string(r2)
-                check_duplicated_states[new_puzzle_string] = r2
             elif new_puzzle_string in check_duplicated_states and procedure_name == "A":
                 exist_node = check_duplicated_states[new_puzzle_string]
                 if heuristic+expand_node_cost+1 < exist_node.get_f():
