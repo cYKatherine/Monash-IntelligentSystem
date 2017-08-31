@@ -337,7 +337,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             open_list.push(l3)
             if diagnostic_count < flag:
-                diagnostic_order_of_expansion.insert(0, str(l3))
                 diagnostic_generate += diagnostic_generate_string(l3)
         if check_R3(expand_node_puzzle):
             new_puzzle = get_r3_puzzle(expand_node_puzzle)
@@ -354,7 +353,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             open_list.push(r3)
             if diagnostic_count < flag:
-                diagnostic_order_of_expansion.insert(0, str(r3))
                 diagnostic_generate += diagnostic_generate_string(r3)
         if check_L1(expand_node_puzzle):
             new_puzzle = get_l1_puzzle(expand_node_puzzle)
@@ -371,7 +369,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             open_list.push(l1)
             if diagnostic_count < flag:
-                diagnostic_order_of_expansion.insert(0, str(l1))
                 diagnostic_generate += diagnostic_generate_string(l1)
         if check_R1(expand_node_puzzle):
             new_puzzle = get_r1_puzzle(expand_node_puzzle)
@@ -388,7 +385,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             open_list.push(r1)
             if diagnostic_count < flag:
-                diagnostic_order_of_expansion.insert(0, str(r1))
                 diagnostic_generate += diagnostic_generate_string(r1)
         if check_L2(expand_node_puzzle):
             new_puzzle = get_l2_puzzle(expand_node_puzzle)
@@ -405,7 +401,6 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             open_list.push(l2)
             if diagnostic_count < flag:
-                diagnostic_order_of_expansion.insert(0, str(l2))
                 diagnostic_generate += diagnostic_generate_string(l2)
         if check_R2(expand_node_puzzle):
             new_puzzle = get_r2_puzzle(expand_node_puzzle)
@@ -422,12 +417,16 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             )
             open_list.push(r2)
             if diagnostic_count < flag:
-                diagnostic_order_of_expansion.insert(0, str(r2))
                 diagnostic_generate += diagnostic_generate_string(r2)
         expand_node.set_children(l1, l2, l3, r1, r2, r3)
 
         # Set up diagnostic mode information
         if diagnostic_count < flag:
+            current = expand_node
+            while current is not None:
+                diagnostic_order_of_expansion.insert(0, str(current))
+                current = current.get_parent()
+
             diagnostic_expand = "Node {} is EXPANDED:\nIdentifier: {}\nOrder of expansion: {}\ng: {}, f: {}\nOPEN list: {}\nCLOSED list: {}\n".format(
                 str(expand_node),
                 str(expand_node),
