@@ -421,13 +421,13 @@ def search_algorithm(procedure_name, puzzle, bound, diagnostic, flag):
             diagnostic_expand = "Node {} is EXPANDED:\nIdentifier: {}\nOrder of expansion: {}\ng: {}, f: {}\nOPEN list: {}\nCLOSED list: {}\n".format(
                 str(expand_node),
                 str(expand_node),
-                ', '.join(diagnostic_order_of_expansion),
+                ' '.join(diagnostic_order_of_expansion),
                 expand_node.get_cost(),
                 expand_node.get_f(),
                 str(open_list),
-                ', '.join([str(node) for node in closed_list])
+                ' '.join([str(node) for node in closed_list])
             )
-            diagnostic.append(diagnostic_expand + diagnostic_generate)
+            diagnostic.append(diagnostic_expand + diagnostic_generate + "----------------------")
             diagnostic_count += 1
 
 def graphsearch(puzzle, flag, procedure_name):
