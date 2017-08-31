@@ -13,9 +13,6 @@ import argparse as ap
 
 
 ################## YOUR CODE GOES HERE ########################################
-DLS_LIMITATION = 50
-diagnostic = [] # The list stored the detail of nodes of expanation
-
 
 class Stack:
     """
@@ -239,7 +236,7 @@ def diagnostic_generate_string(new_node):
             new_node.get_f()
         )
 
-def DLS(puzzle):
+def DLS(puzzle, bound, diagnostic):
     open_list = Stack()  # The nodes that haven't been visited
     closed_list = []  # The nodes that have been visited
 
@@ -259,7 +256,7 @@ def DLS(puzzle):
 
         if check_puzzle_solved(expand_node_puzzle):
             return find_solution(expand_node)
-        if expand_node_depth >= DLS_LIMITATION:
+        if expand_node_depth >= bound:
             continue
 
         diagnostic_order_of_expansion = []
@@ -323,8 +320,8 @@ def graphsearch(puzzle, flag, procedure_name):
     solution = "start BBBWWWE 0" + "\n" + "2L BBBWEWW 1" + "\n" + "2L BBEWBWW 2" + "\n" + "3R BBWWBEW 4"
     if procedure_name == "DLS":
         bound = 100  # you have to determine its value
-        print("your code for DLS goes here")
-        solution = DLS(list(puzzle))
+        diagnostic = [] # The list stored the detail of nodes of expanation
+        solution = DLS(list(puzzle), bound, diagnostic)
     elif procedure_name == "A":
         print("your code for A/A* goes here")
     else:
