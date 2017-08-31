@@ -213,7 +213,7 @@ def find_solution(expand_node):
 
     solution = ""
     while not operator.empty():
-        solution += "{} {} {}\n".format(
+        solution += "{:<5} {} {}\n".format(
             str(operator.pop()),
             ''.join(generated_puzzle.pop()),
             str(cost.pop())
