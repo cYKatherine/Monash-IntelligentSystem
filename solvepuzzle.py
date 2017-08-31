@@ -268,37 +268,79 @@ def DLS(puzzle, bound, diagnostic):
         # should be the revise.
         if check_L3(expand_node_puzzle):
             new_puzzle = get_l3_puzzle(expand_node_puzzle)
-            l3 = Node(expand_node, expand_node_cost+2, 0, new_puzzle, "L3", expand_node_depth+1)
+            l3 = Node(
+                expand_node,
+                expand_node_cost+2,
+                0,
+                new_puzzle,
+                "L3",
+                expand_node_depth+1
+            )
             open_list.push(l3)
             diagnostic_order_of_expansion.append(str(l3))
             diagnostic_generate += diagnostic_generate_string(l3)
         if check_R3(expand_node_puzzle):
             new_puzzle = get_r3_puzzle(expand_node_puzzle)
-            r3 = Node(expand_node, expand_node_cost+2, 0, new_puzzle, "R3", expand_node_depth+1)
+            r3 = Node(
+                expand_node,
+                expand_node_cost+2,
+                0,
+                new_puzzle,
+                "R3",
+                expand_node_depth+1
+            )
             open_list.push(r3)
             diagnostic_order_of_expansion.append(str(r3))
             diagnostic_generate += diagnostic_generate_string(r3)
         if check_L1(expand_node_puzzle):
             new_puzzle = get_l1_puzzle(expand_node_puzzle)
-            l1 = Node(expand_node, expand_node_cost+1, 0, new_puzzle, "L1", expand_node_depth+1)
+            l1 = Node(
+                expand_node,
+                expand_node_cost+1,
+                0,
+                new_puzzle,
+                "L1",
+                expand_node_depth+1
+            )
             open_list.push(l1)
             diagnostic_order_of_expansion.append(str(l1))
             diagnostic_generate += diagnostic_generate_string(l1)
         if check_R1(expand_node_puzzle):
             new_puzzle = get_r1_puzzle(expand_node_puzzle)
-            r1 = Node(expand_node, expand_node_cost+1, 0, new_puzzle, "R1", expand_node_depth+1)
+            r1 = Node(
+                expand_node,
+                expand_node_cost+1,
+                0,
+                new_puzzle,
+                "R1",
+                expand_node_depth+1
+            )
             open_list.push(r1)
             diagnostic_order_of_expansion.append(str(r1))
             diagnostic_generate += diagnostic_generate_string(r1)
         if check_L2(expand_node_puzzle):
             new_puzzle = get_l2_puzzle(expand_node_puzzle)
-            l2 = Node(expand_node, expand_node_cost+1, 0, new_puzzle, "L2", expand_node_depth+1)
+            l2 = Node(
+                expand_node,
+                expand_node_cost+1,
+                0,
+                new_puzzle,
+                "L2",
+                expand_node_depth+1
+            )
             open_list.push(l2)
             diagnostic_order_of_expansion.append(str(l2))
             diagnostic_generate += diagnostic_generate_string(l2)
         if check_R2(expand_node_puzzle):
             new_puzzle = get_r2_puzzle(expand_node_puzzle)
-            r2 = Node(expand_node, expand_node_cost+1, 0, new_puzzle, "R2", expand_node_depth+1)
+            r2 = Node(
+                expand_node,
+                expand_node_cost+1,
+                0,
+                new_puzzle,
+                "R2",
+                expand_node_depth+1
+            )
             open_list.push(r2)
             diagnostic_order_of_expansion.append(str(r2))
             diagnostic_generate += diagnostic_generate_string(r2)
