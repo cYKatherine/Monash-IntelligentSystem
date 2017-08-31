@@ -221,20 +221,20 @@ def find_solution(expand_node):
     print(solution)
     return solution
 
-def diagnostic_generate_string(new_node):
-    """
-    This function is to generate the string for diagnosing of a node
-    who is generated.
-    """
-    return "\nNode {} is GENERATED:\nOperator: {}\nIdentifier: {}\nParent: {}\ng: {}, h: {}, f: {}\n".format(
-            str(new_node),
-            new_node.get_operator(),
-            str(new_node),
-            str(new_node.get_parent()),
-            new_node.get_cost(),
-            new_node.get_h(),
-            new_node.get_f()
-        )
+# def diagnostic_generate_string(new_node):
+#     """
+#     This function is to generate the string for diagnosing of a node
+#     who is generated.
+#     """
+#     return "\nNode {} is GENERATED:\nOperator: {}\nIdentifier: {}\nParent: {}\ng: {}, h: {}, f: {}\n".format(
+#             str(new_node),
+#             new_node.get_operator(),
+#             str(new_node),
+#             str(new_node.get_parent()),
+#             new_node.get_cost(),
+#             new_node.get_h(),
+#             new_node.get_f()
+#         )
 
 def DLS(puzzle, bound, diagnostic):
     open_list = Stack()  # The nodes that haven't been visited
@@ -259,8 +259,8 @@ def DLS(puzzle, bound, diagnostic):
         if expand_node_depth >= bound:
             continue
 
-        diagnostic_order_of_expansion = []
-        diagnostic_generate = ""
+        # diagnostic_order_of_expansion = []
+        # diagnostic_generate = ""
 
         l1, l2, l3, r1, r2, r3 = None, None, None, None, None, None
         # The priority of the children to pop up should be "R2, L2,
@@ -277,8 +277,8 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(l3)
-            diagnostic_order_of_expansion.append(str(l3))
-            diagnostic_generate += diagnostic_generate_string(l3)
+            # diagnostic_order_of_expansion.append(str(l3))
+            # diagnostic_generate += diagnostic_generate_string(l3)
         if check_R3(expand_node_puzzle):
             new_puzzle = get_r3_puzzle(expand_node_puzzle)
             r3 = Node(
@@ -290,8 +290,8 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(r3)
-            diagnostic_order_of_expansion.append(str(r3))
-            diagnostic_generate += diagnostic_generate_string(r3)
+            # diagnostic_order_of_expansion.append(str(r3))
+            # diagnostic_generate += diagnostic_generate_string(r3)
         if check_L1(expand_node_puzzle):
             new_puzzle = get_l1_puzzle(expand_node_puzzle)
             l1 = Node(
@@ -303,8 +303,8 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(l1)
-            diagnostic_order_of_expansion.append(str(l1))
-            diagnostic_generate += diagnostic_generate_string(l1)
+            # diagnostic_order_of_expansion.append(str(l1))
+            # diagnostic_generate += diagnostic_generate_string(l1)
         if check_R1(expand_node_puzzle):
             new_puzzle = get_r1_puzzle(expand_node_puzzle)
             r1 = Node(
@@ -316,8 +316,8 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(r1)
-            diagnostic_order_of_expansion.append(str(r1))
-            diagnostic_generate += diagnostic_generate_string(r1)
+            # diagnostic_order_of_expansion.append(str(r1))
+            # diagnostic_generate += diagnostic_generate_string(r1)
         if check_L2(expand_node_puzzle):
             new_puzzle = get_l2_puzzle(expand_node_puzzle)
             l2 = Node(
@@ -329,8 +329,8 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(l2)
-            diagnostic_order_of_expansion.append(str(l2))
-            diagnostic_generate += diagnostic_generate_string(l2)
+            # diagnostic_order_of_expansion.append(str(l2))
+            # diagnostic_generate += diagnostic_generate_string(l2)
         if check_R2(expand_node_puzzle):
             new_puzzle = get_r2_puzzle(expand_node_puzzle)
             r2 = Node(
@@ -342,21 +342,21 @@ def DLS(puzzle, bound, diagnostic):
                 expand_node_depth+1
             )
             open_list.push(r2)
-            diagnostic_order_of_expansion.append(str(r2))
-            diagnostic_generate += diagnostic_generate_string(r2)
+            # diagnostic_order_of_expansion.append(str(r2))
+            # diagnostic_generate += diagnostic_generate_string(r2)
         expand_node.set_children(l1, l2, l3, r1, r2, r3)
 
         # Set up diagnostic mode information
-        diagnostic_expand = "Node {} is EXPANDED:\nIdentifier: {}\nOrder of expansion: {}\ng: {}, f: {}\nOPEN list: {}\nCLOSED list: {}\n".format(
-            str(expand_node),
-            str(expand_node),
-            ', '.join(diagnostic_order_of_expansion),
-            expand_node.get_cost(),
-            expand_node.get_f(),
-            str(open_list),
-            ', '.join([str(node) for node in closed_list])
-        )
-        diagnostic.append(diagnostic_expand + diagnostic_generate)
+        # diagnostic_expand = "Node {} is EXPANDED:\nIdentifier: {}\nOrder of expansion: {}\ng: {}, f: {}\nOPEN list: {}\nCLOSED list: {}\n".format(
+        #     str(expand_node),
+        #     str(expand_node),
+        #     ', '.join(diagnostic_order_of_expansion),
+        #     expand_node.get_cost(),
+        #     expand_node.get_f(),
+        #     str(open_list),
+        #     ', '.join([str(node) for node in closed_list])
+        # )
+        # diagnostic.append(diagnostic_expand + diagnostic_generate)
 
 def graphsearch(puzzle, flag, procedure_name):
     solution = "start BBBWWWE 0" + "\n" + "2L BBBWEWW 1" + "\n" + "2L BBEWBWW 2" + "\n" + "3R BBWWBEW 4"
@@ -369,9 +369,9 @@ def graphsearch(puzzle, flag, procedure_name):
     else:
         print("invalid procedure name")
 
-    if flag > 0:
-        for i in range(flag):
-            print(diagnostic[i])
+    # if flag > 0:
+    #     for i in range(flag):
+    #         print(diagnostic[i])
 
     return solution
 
